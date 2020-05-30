@@ -8,13 +8,13 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "person")
+@Table(name = "persons")
 data class PersonsDB(
         @Id
-        @SequenceGenerator(name = "person_id_seq", sequenceName = "persons_id_seq", allocationSize = 1)
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_id_seq")
+        @SequenceGenerator(name = "pers_id_seq", sequenceName = "person_id_seq", allocationSize = 1)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pers_id_seq")
         @Column(name = "id", nullable = false, insertable = false)
-        val idPersons: Long? = null,
+        val idPerson: Long? = null,
 
         @Column(nullable = false)
         val fullname: String? = null,
@@ -22,13 +22,12 @@ data class PersonsDB(
         @Column(nullable = false)
         val birthday: Date? = null,
 
-
-        @OneToMany(mappedBy = "idPersons", cascade = arrayOf(CascadeType.ALL))
+        @OneToMany(mappedBy = "idPerson", cascade = [CascadeType.ALL])
         val hobbies: Set<HobbyDB> = HashSet()
 )
 
 @Entity
-@Table(name = "hobbies")
+@Table(name = "hobby")
 data class HobbyDB(
         @Id
         @SequenceGenerator(name = "hob_id_seq", sequenceName = "hobbies_id_seq", allocationSize = 1)
@@ -44,7 +43,7 @@ data class HobbyDB(
 
         @ManyToOne
         @JoinColumn(name="id_person", nullable = false)
-        val idPersons: PersonsDB? =null
+        val idPerson: PersonsDB? =null
 )
 
 

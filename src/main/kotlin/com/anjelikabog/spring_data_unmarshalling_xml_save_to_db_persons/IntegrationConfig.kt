@@ -62,7 +62,7 @@ class FileConfiguration(
                     val hobby = HobbyDB(
                             hobby_name = hobbs.hobby_name!!,
                             complexity = hobbs.complexity!!,
-                            idPersons = personsRepository.findById(pers.idPersons!!).get())
+                            idPerson = personsRepository.findById(pers.idPerson!!).get())
                     hobbyRepository.save(hobby)
 
                 }
@@ -86,6 +86,7 @@ class FileConfiguration(
         transform<ErrorMessage> {
             it.originalMessage?.payload as File
         }
+
         handle(Files.outboundAdapter(errors)
                 .deleteSourceFiles(true)
                 .autoCreateDirectory(true)
